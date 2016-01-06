@@ -4,7 +4,7 @@ class SessionsController < Devise::SessionsController
     super
     if create_session?
       user.save!
-      redirect_to root_path
+      redirect_to @user
     end
   end
 
