@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'items/new'
-
   devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
 
-  root to: 'welcome#index'
+  root 'welcome#index'
 
-  resources :users do
-    resources :items, only: [:show, :create, :new]
+  resources :users, only: [:show] do
+    resources :items, only: [:create, :new]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

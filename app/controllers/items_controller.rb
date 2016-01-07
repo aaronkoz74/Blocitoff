@@ -4,19 +4,16 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  def show
-    @item = Item.find(params[:id])
-  end
-
   def create
-    @user = User.find(params:[:user_id])
-    @item = @user.items.build(item_params)
-    @item.user = current_user
-  end
+    @item = Item.new
+    @item.description = params[:item][:description]
+    @user = User.find(params[:user_id])
+    @item.user = @user
 
-  private
-
-  def item_params
-    params.require(:item).permit(:task)
+    if @item.save
+      redirect_to user_path(@user), notice: "Item was saved."
+    else
+      flash[:error] = "There was an error saving the item.  Please try again."
+    end
   end
 end
