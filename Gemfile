@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'devise'
 
+gem 'faker'
+
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'twitter-bootstrap-rails'
