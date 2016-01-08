@@ -14,8 +14,10 @@ end
 
 5.times do
   users = User.all
-  description = Faker::Lorem.sentence(3)
-  users.each { |user| user.items.create!(description: description) }
+  users.each do |user|
+    description = Faker::Lorem.sentence(3)
+    user.items.create!(description: description)
+  end
 end
 
 puts "Seed finished"
