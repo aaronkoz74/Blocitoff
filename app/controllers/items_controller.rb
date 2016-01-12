@@ -22,9 +22,18 @@ class ItemsController < ApplicationController
   def destroy
     @user = User.find(params[:user_id])
     @item = Item.find(params[:id])
-    @item.destroy
-    flash[:notice] = "Item was removed from your list - Congratulations!"
-    redirect_to user_path(@user)
+
+    if @item.destroy
+      flash[:notice] = "Item was removed from your list - Congratulations!"
+
+    else
+      flash[:alert] = "Item couldn't be removed from your list.  Try again."
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private
