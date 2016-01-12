@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :only_permit_current_user, only: [:new, :create, :destroy]
 
+
   def new
     @user = User.find(params[:user_id])
     @item = Item.new
@@ -19,7 +20,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @user = current_user
+    @user = User.find(params[:user_id])
     @item = Item.find(params[:id])
     @item.destroy
     flash[:notice] = "Item was removed from your list - Congratulations!"
@@ -33,7 +34,8 @@ class ItemsController < ApplicationController
   end
 
   def only_permit_current_user
-    unless user_signed_in? && (@user == current_user)
+    @user = User.find(params[:user_id])
+    unless user_signed_in? && current_user == @user
       redirect_to root_path
       flash[:notice] = "You must be logged in as user to add or delete items."
     end
