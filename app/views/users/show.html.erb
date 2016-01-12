@@ -9,14 +9,18 @@
         <table class="table table-bordered">
           <tr>
             <td align-left><%= item.description %></td>
-            <td align-center> placeholder </td>
+            <td align-center>
+              <%= render partial: 'items/item', locals: { user: @user, item: item } %>
+            </td>
           </tr>
         </table>
       <% end %>
     </div>
     <div class="row">
       <div class="col-md-12 text-center">
-        <%= link_to "New Item", new_user_item_path(@user), class: 'btn btn-success' %>
+        <% if user_signed_in? && @user == current_user %>
+          <%= link_to "New Item", new_user_item_path(@user), class: 'btn btn-success' %>
+        <% end %>
       </div>
     </div>
   </div>
