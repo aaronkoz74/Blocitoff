@@ -9,7 +9,9 @@
         <table class="table table-bordered">
           <tr>
             <td align-left><%= item.description %></td>
-            <td align-center> placeholder </td>
+            <td align-center>
+              <%= render partial: 'items/item', locals: { user: @user, item: item } %>
+            </td>
           </tr>
         </table>
       <% end %>
