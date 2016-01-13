@@ -7,7 +7,7 @@
       <h2>Tasks At-hand</h2>
       <% @user.items.each do |item| %>
         <table class="table table-bordered">
-          <tr>
+          <tr id="item-<%= item.id %>">
             <td align-left><%= item.description %></td>
             <td align-center>
               <%= render partial: 'items/item', locals: { user: @user, item: item } %>
