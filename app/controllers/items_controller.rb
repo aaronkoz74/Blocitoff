@@ -46,13 +46,15 @@ class ItemsController < ApplicationController
   def only_permit_current_user
     @user = User.find(params[:user_id])
     unless user_signed_in? && current_user == @user
+      flash[:alert] = "You must be logged in as that user to add or delete items."
+
       respond_to do |format|
         format.html do
           redirect_to user_path(@user), status: 303
-          flash[:notice] = "You must be logged in as that user to add or delete items."
+          # flash[:notice] = "You must be logged in as that user to add or delete items."
         end
         format.js do
-          flash.now[:notice] = "You must be logged in as that user to add or delete items."
+          # flash.now[:notice] = "You must be logged in as that user to add or delete items."
           # render js file with a flash alert saying
         end
       end

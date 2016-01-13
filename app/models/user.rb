@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates_presence_of :username
+  validates_uniqueness_of :username, :email
 
   def confirm!
     super
