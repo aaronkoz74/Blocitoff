@@ -1,29 +1,34 @@
 class ItemsController < ApplicationController
+  before_action :set_user
   before_action :only_permit_current_user, only: [:new, :create, :destroy]
 
   def new
-    @user = User.find(params[:user_id])
     @item = Item.new
   end
 
   def create
-    @user = User.find(params[:user_id])
     @item = @user.items.build(item_params)
     @item.user = @user
 
     if @item.save
-      redirect_to user_path(@user), notice: "Item was saved."
+      flash[:notice] = "Item was saved."
     else
       flash[:error] = "There was an error saving the item.  Please try again."
+    end
+
+    respond_to do |format|
+      format.html do
+        redirect_to user_path(@user)
+      end
+      format.js
     end
   end
 
   def destroy
-    @user = User.find(params[:user_id])
     @item = @user.items.find(params[:id])
 
     if @item.destroy
-      flash[:notice] = "Item was removed from your list - Congratulations!"
+      flash.now[:notice] = "Item was removed from your list - Congratulations!"
 
     else
       flash[:alert] = "Item could not be removed from your list.  Try again."
@@ -33,7 +38,7 @@ class ItemsController < ApplicationController
       format.html do
         redirect_to root_url
       end
-      format.js #{ render js: 'destroy.js.erb' }
+      format.js
     end
   end
 
@@ -43,19 +48,20 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:description)
   end
 
-  def only_permit_current_user
+  def set_user
     @user = User.find(params[:user_id])
+  end
+
+  def only_permit_current_user
     unless user_signed_in? && current_user == @user
-      flash[:alert] = "You must be logged in as that user to add or delete items."
 
       respond_to do |format|
         format.html do
+          flash[:alert] = "You must be logged in as that user to add or delete items."
           redirect_to user_path(@user), status: 303
-          # flash[:notice] = "You must be logged in as that user to add or delete items."
         end
         format.js do
-          # flash.now[:notice] = "You must be logged in as that user to add or delete items."
-          # render js file with a flash alert saying
+          render 'only_permit_current_user.js.erb'
         end
       end
     end

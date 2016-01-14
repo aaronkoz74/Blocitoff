@@ -1,7 +1,8 @@
 <%= form_for [user, item] do |f| %>
   <div class="form-group">
     <%= f.label :description %>
-    <%= f.text_field :description, class: 'form-control', placeholder: "Enter the task" %>
+    <%= f.text_field :description, class: 'form-control', placeholder: "Enter the task", required: true %>
     <%= f.submit "Save", class: 'btn btn-success' %>
+    <%= link_to "Back", user_path(@user), class: 'btn btn-warning' %>
   </div>
 <% end %>
