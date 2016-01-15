@@ -1,17 +1,10 @@
 class Item < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+
   belongs_to :user
 
-  attr_accessor :task, :time_remaining
-
-  def time_remaining(entry)
-    limit = 7.days
-    span = distance_of_time_in_words(entry.created_at, Time.now)
-
-    if span <= limit
-      limit - span
-    else
-      "Overdue!"
-    end
+  def time_remaining
+    span = 7 - (distance_of_time_in_words(self.created_at, Time.now)).to_i
   end
 
 

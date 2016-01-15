@@ -18,9 +18,8 @@
             <tr id="item-<%= item.id %>">
               <td><%= item.description %></td>
               <td>
-                <%= distance_of_time_in_words(item.created_at, Time.now - 7.days) %>
+                <%= item.time_remaining %>
               </td>
-                <!-- @time_remaining(item) -->
               <td>
                 <%= render partial: 'items/item', locals: { user: @user, item: item } %>
               </td>
