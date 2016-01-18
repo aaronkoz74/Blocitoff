@@ -4,8 +4,6 @@ class Item < ActiveRecord::Base
   belongs_to :user
 
   def time_remaining
-    span = 7 - (distance_of_time_in_words(self.created_at, Time.now)).to_i
+    ((self.created_at - (7.days.ago.middle_of_day))/86400).to_i
   end
-
-
 end

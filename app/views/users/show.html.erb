@@ -18,7 +18,7 @@
             <tr id="item-<%= item.id %>">
               <td><%= item.description %></td>
               <td>
-                <%= item.time_remaining %>
+                <%= pluralize(item.time_remaining, 'day') %>
               </td>
               <td>
                 <%= render partial: 'items/item', locals: { user: @user, item: item } %>
