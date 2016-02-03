@@ -6,7 +6,7 @@ gem 'faker'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
-# gem 'twitter-bootstrap-rails'
+gem 'whenever', :require => false
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
